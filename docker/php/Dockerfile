@@ -14,6 +14,9 @@ RUN echo 'xdebug.mode = debug' >> /usr/local/etc/php/conf.d/docker-php-ext-xdebu
     && echo 'xdebug.client_port = 9003' >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo 'xdebug.log = /var/tmp/xdebug.log' >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
+# Install pdo_mysql extension
+RUN docker-php-ext-install mysqli
+
 # Install Composer globally
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -21,7 +24,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY . /app
 
 # Install PHP dependencies with Composer
-# Consider running composer install with --no-dev for production environments
 RUN composer install --prefer-dist --no-scripts --no-dev --no-autoloader && rm -rf /root/.composer
 
 # Dump autoload

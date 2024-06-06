@@ -1,10 +1,21 @@
 stan:
+	@echo "Running PHPStan analysis..."
 	php vendor/bin/phpstan analyse -l max src tests
 
 coverage:
-	docker container exec gapi-php-fpm-1 ./vendor/bin/phpunit --coverage-html var/code-coverage
+	@echo "Running PHPUnit with coverage..."
+	docker-compose exec php-fpm ./vendor/bin/phpunit --coverage-html var/code-coverage
 
 unit:
-	docker container exec gapi-php-fpm-1 ./vendor/bin/phpunit tests
+	@echo "Running PHPUnit tests..."
+	docker-compose exec php-fpm ./vendor/bin/phpunit tests
 
+up:
+	@echo "Building Docker images..."
+	docker-compose build
+	@echo "Starting Docker containers..."
+	docker-compose up -d
 
+stop:
+	@echo "Stopping Docker containers..."
+	docker-compose stop

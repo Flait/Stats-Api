@@ -1,0 +1,11 @@
+# Ignore everything
+**
+
+# Allow specific files and directories
+!composer.json
+!composer.lock
+!src/
+!public/
+!vendor/
+!.env
+!docker-compose.yml

@@ -1,8 +1,6 @@
-CREATE DATABASE IF NOT EXISTS sapidb;
+CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
 
-USE sapidb;
-
-
+USE ${MYSQL_DATABASE};
 
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -10,4 +8,5 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL
 );
 
-INSERT INTO users (name, password) VALUES ('admin', '123');
+INSERT INTO users (name, token) VALUES ('admin', '123');
+
