@@ -5,7 +5,8 @@ FROM php:8.3.4-fpm
 WORKDIR /app
 
 RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug || echo "Xdebug already installed"
+    && docker-php-ext-enable xdebug || echo "Xdebug already installed" \
+    && docker-php-ext-install pdo_mysql
 
 # Add Xdebug configuration
 RUN echo 'xdebug.mode = debug' >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
@@ -13,9 +14,6 @@ RUN echo 'xdebug.mode = debug' >> /usr/local/etc/php/conf.d/docker-php-ext-xdebu
     && echo 'xdebug.client_host = host.docker.internal' >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo 'xdebug.client_port = 9003' >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo 'xdebug.log = /var/tmp/xdebug.log' >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-
-# Install pdo_mysql extension
-RUN docker-php-ext-install mysqli
 
 # Install Composer globally
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

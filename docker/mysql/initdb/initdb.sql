@@ -3,10 +3,20 @@ CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
 USE ${MYSQL_DATABASE};
 
 CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
 );
 
-INSERT INTO users (name, token) VALUES ('admin', '123');
+INSERT INTO users (name, password) VALUES ('admin', '123');
 
+CREATE TABLE IF NOT EXISTS weights (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    amount FLOAT NOT NULL,
+    measured_at DATETIME NOT NULL,
+    user_id INT UNSIGNED,
+    INDEX (user_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+INSERT INTO weights (amount, measured_at, user_id) VALUES (73.5, '2024-06-07 10:30:00', 1);

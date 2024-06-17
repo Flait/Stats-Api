@@ -22,10 +22,3 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-
-    App\Service\Database\MySQLConnection:
-        arguments:
-            $host: '%env(MYSQL_HOST)%'
-            $username: '%env(MYSQL_USER)%'
-            $password: '%env(MYSQL_ROOT_PASSWORD)%'
-            $dbname: '%env(MYSQL_DATABASE)%'
